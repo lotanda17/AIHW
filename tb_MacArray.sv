@@ -47,18 +47,18 @@ module tb_MacArray;
     logic [MAC_COL-1:0]                             cal_done; // column done
 
     logic                                           w_prefetch_in;
-    logic                                           w_enable_in;
+    logic                                           w_enable_in; //en
     logic [W_BITWIDTH-1:0]                          w_data[MAC_COL-1:0][MAC_ROW-1:0];
-    logic [MAC_COL-1:0][W_BITWIDTH-1:0]             w_data_in;
+    logic [MAC_COL-1:0][W_BITWIDTH-1:0]             w_data_in; // one
 
     logic                                           ifmap_start_in;
-    logic [MAC_ROW-1:0]                             ifmap_enable_in;
+    logic [MAC_ROW-1:0]                             ifmap_enable_in; //en
     logic [IFMAP_BITWIDTH-1:0]                      ifmap_data[MAC_ROW-1:0][IFMAP_NUM-1:0];
     logic [MAC_ROW-1:0][IFMAP_BITWIDTH-1:0]         ifmap_data_in;
 
-    logic [MAC_COL-1:0]                             ofmap_valid_out;
+    logic [MAC_COL-1:0]                             ofmap_valid_out; //en
     logic [OFMAP_BITWIDTH-1:0]                      ofmap_data[MAC_COL-1:0][OFMAP_NUM-1:0];
-    logic [MAC_COL-1:0][OFMAP_BITWIDTH-1:0]         ofmap_data_out;
+    logic [MAC_COL-1:0][OFMAP_BITWIDTH-1:0]         ofmap_data_out; // one
     logic [OFMAP_BITWIDTH-1:0]                      ref_ofmap_data[MAC_COL-1:0];
 
 /////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ module tb_MacArray;
 
         for (int r = 0; r < MAC_ROW; r++) begin: ROW_W_PREFETCH
             for (int c = 0; c < MAC_COL; c++) begin: COL_W_PREFETCH
-                w_data_in[c]                        = w_data[c][MAC_ROW-1-r];
+                w_data_in[c]                        = w_data[c][MAC_ROW-1-r];   // w_data_in[c]  =  w_data_in[c][*]
             end
             @(posedge clk);
         end
